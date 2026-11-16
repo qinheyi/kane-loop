@@ -2,7 +2,8 @@
 // kane-loop: close the loop between a coding agent and Kane CLI.
 //   kane-loop verify                 run every Kane flow once (exit 0 = all green)
 //   kane-loop fix                    verify -> agent reads Kane's failure -> patch -> re-verify, until green
-//   kane-loop task "<change>"        agent implements a change, then the fix loop proves it with Kane
+//   kane-loop task "<change>" [--flow "<Kane objective>"]
+//                                    agent implements a change, then the fix loop proves it (plus the new flow) with Kane
 //   kane-loop watch [--fix]          re-verify on every save of an app file (and auto-fix with --fix)
 // Options: --config <file> (default kane-loop.config.json), --max <n> iterations, --no-agent (fallback only)
 import fs from "node:fs";
@@ -22,7 +23,7 @@ const green = (s) => c(32, s), red = (s) => c(31, s), dim = (s) => c(2, s), bold
 const log = (...a) => console.log(...a);
 
 if (cmd === "help" || cmd === "--help") {
-  log(fs.readFileSync(new URL(import.meta.url), "utf8").split("\n").slice(1, 8).map((l) => l.replace(/^\/\/ ?/, "")).join("\n"));
+  log(fs.readFileSync(new URL(import.meta.url), "utf8").split("\n").slice(1, 9).map((l) => l.replace(/^\/\/ ?/, "")).join("\n"));
   process.exit(0);
 }
 
@@ -188,6 +189,8 @@ try {
   else if (cmd === "task") {
     const instruction = argv.slice(1).filter((a, i, arr) => !a.startsWith("--") && !(arr[i - 1] ?? "").startsWith("--")).join(" ");
     if (!instruction) throw new Error('usage: kane-loop task "<change request>"');
+    const extra = opt("--flow");
+    if (extra) cfg.flows.push({ name: "task-flow", objective: extra });
     process.exit((await loop({ instruction })) ? 0 : 1);
   } else if (cmd === "watch") { if (!flag("--fix")) argv.push("--max", "1"); await watch(); }
   else { log(`unknown command ${cmd}; try kane-loop help`); process.exit(2); }
