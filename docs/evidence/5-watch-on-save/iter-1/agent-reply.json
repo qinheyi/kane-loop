@@ -1,0 +1,10 @@
+{
+  "diagnosis": "The bill amount is read as a string, so adding the numeric tip concatenates values instead of calculating a numeric total and later crashes `money` when calling `toFixed`. Convert the bill to a number before validation and calculation.",
+  "edits": [
+    {
+      "file": "app/app.js",
+      "find": "  const bill = document.getElementById(\"bill\").value;",
+      "replace": "  const bill = parseFloat(document.getElementById(\"bill\").value);"
+    }
+  ]
+}

@@ -1,0 +1,58 @@
+Injected regression into app/app.js:
+- const bill = parseFloat(document.getElementById("bill").value);
++ const bill = document.getElementById("bill").value;
+starting app: node server.js 4173
+
+== iteration 1/4: Kane CLI verifies 2 flow(s) on http://localhost:4173
+ > kane-cli run "split-three-ways"  (Go to http://localhost:4173, enter 120 in the Bill amount field, set Tip percent to 15, se...)
+   [split-three-ways] step 2: navigate: Navigate to http://localhost:4173
+   [split-three-ways] step 3: wait: queued plan (3 steps): type "Bill amount"; type "Tip percent"; type "Number of p
+   [split-three-ways] step 4: type: Type "120" into "Bill amount"
+   [split-three-ways] step 6: type: Entering number of people as 3
+   [split-three-ways] step 7: click: Clicking Calculate
+   [split-three-ways] step 8: wait: PRIMARY: wait 500 ms for the calculation result to render
+   [split-three-ways] step 9: type: Typing 15 in Tip percent
+   [split-three-ways] step 10: click: Clicking Calculate button
+   [split-three-ways] step 11 FAILED: wait: Waiting 500 ms after the calculation attempts
+   FAIL split-three-ways [failed, exit 1] Calculate does not show the per-person amount for valid inputs because the page errors while formatting the result. 22.7 credits
+   Test Manager: https://test-manager.lambdatest.com/projects/01M7H6CPK23PWTY8SBYSKWSDNA/test-cases/01M7H6S9ECKZW3X80BSW0GY32M/dashboard/share/US_SYHZLCB11WPIATK41XUA79Z6RM72RERBJZLF9MTAFIPSO1N47XFJ2IS7KAS4WBP4
+ > kane-cli run "rejects-zero-people"  (Go to http://localhost:4173, enter 50 in the Bill amount field, set Number of people to 0,...)
+   [rejects-zero-people] step 2: navigate: Navigate to http://localhost:4173
+   [rejects-zero-people] step 3: type: Entering 50 in Bill amount field
+   [rejects-zero-people] step 4: type: Typing number of people
+   [rejects-zero-people] step 5: click: Clicking Calculate button
+   [rejects-zero-people] step 6: analyze: ANALYZE(textual_visual, 'an error message asking for at least 1 person is visibl
+   [rejects-zero-people] step 7: assert: an error message asking for at least 1 person is visible
+   PASS rejects-zero-people 29.8s 14.5 credits
+   Test Manager: https://test-manager.lambdatest.com/projects/01M7H6CPK23PWTY8SBYSKWSDNA/test-cases/01M7H6VQWCA9XK0ZTV9GQKB8KK/dashboard/share/US_QETR28G24H0HH75AXW2KQLPJU1H7EZ13Z91KU2Q1SAQPRNPIN4KQB8R6KE0S7IOC
+ agent: reading Kane failure, asking MiniMax-M2.7 for a patch...
+   diagnosis: The Bill amount input value is read as a string, so multiplication yields a string and `money()` crashes when calling `toFixed()`. Parse the bill as a number before validation and calculation.
+   -  const bill = document.getElementById("bill").value;
+   +  const bill = parseFloat(document.getElementById("bill").value);
+
+== iteration 2/4: Kane CLI verifies 2 flow(s) on http://localhost:4173
+ > kane-cli run "split-three-ways"  (Go to http://localhost:4173, enter 120 in the Bill amount field, set Tip percent to 15, se...)
+   [split-three-ways] step 2: navigate: Navigate to http://localhost:4173
+   [split-three-ways] step 3: wait: queued plan (3 steps): type "Bill amount"; type "Tip percent"; type "Number of p
+   [split-three-ways] step 4: type: Type "120" into "Bill amount"
+   [split-three-ways] step 6: type: Typing 3 into Number of people field
+   [split-three-ways] step 7: click: Clicking Calculate
+   [split-three-ways] step 8: analyze: the page says Each person pays $46.00
+   [split-three-ways] step 9: assert: the page says Each person pays $46.00
+   PASS split-three-ways 33.1s 14.7 credits
+   Test Manager: https://test-manager.lambdatest.com/projects/01M7H6CPK23PWTY8SBYSKWSDNA/test-cases/01M7H6X6HS143TWFTAD5EFEMTP/dashboard/share/US_3AHRBZCFO8UTMN5YFQK7Z4IQAPI9C624KPKTD6F4OEWRWT6JOG29LDGOE7LTFSLJ
+ > kane-cli run "rejects-zero-people"  (Go to http://localhost:4173, enter 50 in the Bill amount field, set Number of people to 0,...)
+   [rejects-zero-people] step 2: navigate: Navigate to http://localhost:4173
+   [rejects-zero-people] step 3: wait: queued plan (3 steps): type "Bill amount"; type "Number of people"; click "Calcu
+   [rejects-zero-people] step 4: type: Type "50" into "Bill amount"
+   [rejects-zero-people] step 6: type: Typing 0 into Number of people field
+   [rejects-zero-people] step 7: click: Clicking Calculate button
+   [rejects-zero-people] step 8: analyze: ANALYZE(textual_visual, 'an error message asking for at least 1 person is visibl
+   [rejects-zero-people] step 9: assert: an error message asking for at least 1 person is visible
+   PASS rejects-zero-people 31.9s 14.9 credits
+   Test Manager: https://test-manager.lambdatest.com/projects/01M7H6CPK23PWTY8SBYSKWSDNA/test-cases/01M7H6YN6PVDPY71YY73VHGGXK/dashboard/share/US_M7SK4AGYNO6JA3SOLCQ0IPM136JQIEXT9KYZCO4KNJASPSW7E185A33B2E364FHM
+
+GREEN after 2 Kane run(s). Snapshot saved as last-green.
+
+run log: .kane-loop/runs/2026-11-16T03-35-30-fix/ (loop.json, REPORT.md, raw Kane NDJSON per flow)
+

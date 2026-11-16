@@ -28,6 +28,12 @@ if (cmd === "help" || cmd === "--help") {
 }
 
 const cfg = JSON.parse(fs.readFileSync(cfgPath, "utf8"));
+// KANE_LOOP_URL points every flow at another deployment (e.g. the live Vercel URL) without editing the config.
+if (process.env.KANE_LOOP_URL) {
+  const target = process.env.KANE_LOOP_URL.replace(/\/$/, "");
+  for (const f of cfg.flows) f.objective = f.objective.split(cfg.app.url).join(target);
+  cfg.app = { ...cfg.app, url: target, start: null };
+}
 const stateDir = path.join(root, ".kane-loop");
 const canFix = cmd === "fix" || cmd === "task" || (cmd === "watch" && flag("--fix"));
 const maxIter = canFix ? Number(opt("--max", cfg.maxIterations ?? 4)) : 1;

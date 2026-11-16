@@ -1,0 +1,66 @@
+[
+  {
+    "flow": "split-three-ways",
+    "objective": "Go to http://localhost:4173, enter 120 in the Bill amount field, set Tip percent to 15, set Number of people to 3, click Calculate, then verify the page says Each person pays $46.00",
+    "kane_status": "failed",
+    "exit_code": 1,
+    "reason": "Valid inputs were confirmed and Calculate clicked twice, but no result text or result element appears.",
+    "reason_code": "assertion_error.confirmed_product_bug",
+    "summary": "The calculation page treats a value as though it were a number when it is not, so it stops before it can display the amount each person owes.\nFix the calculation result handling so all form values are converted to numbers before formatting the per-person amount, then add coverage for 120, 15%, and 3 people.\nevidence: console_error: n.toFixed is not a function",
+    "final_state": {},
+    "failed_assertions": [],
+    "failed_steps": [
+      "wait: Waiting 500 ms after the calculation attempts"
+    ],
+    "last_steps": [
+      "done: type: Entering number of people as 3",
+      "done: click: Clicking Calculate",
+      "done: wait: PRIMARY: wait 500 ms for the calculation result to render",
+      "done: type: Typing 15 in Tip percent",
+      "done: click: Clicking Calculate button",
+      "failed: wait: Waiting 500 ms after the calculation attempts"
+    ],
+    "browser_console": [
+      {
+        "marker": "step",
+        "step": "0-1",
+        "ordinal": 1
+      },
+      {
+        "sequence": 0,
+        "level": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "url": "http://localhost:4173/favicon.ico",
+        "line": 0,
+        "step": "0-1"
+      },
+      {
+        "marker": "step",
+        "step": "0-6",
+        "ordinal": 6
+      },
+      {
+        "sequence": 1,
+        "level": "error",
+        "text": "n.toFixed is not a function",
+        "url": "",
+        "line": 0,
+        "step": "0-6"
+      },
+      {
+        "marker": "step",
+        "step": "0-9",
+        "ordinal": 9
+      },
+      {
+        "sequence": 2,
+        "level": "error",
+        "text": "n.toFixed is not a function",
+        "url": "",
+        "line": 0,
+        "step": "0-9"
+      }
+    ],
+    "failure_record": "generated: 2026-11-16T03:36:43.586Z\ntotals:\n  failures: 1\n  triaged: 1\n  untriaged: 0\nfailures:\n  - test: go-to-http-localhost-4173-enter-120-in-t-678af700\n    ordinal: 9\n    step: 0-9\n    status: failed\n    path: tests/go-to-http-localhost-4173-enter-120-in-t-678af700/steps/9-0-9/failure.yaml\n    title: Calculate crashes on valid bill-splitting inputs\n    triage_status: triaged\n"
+  }
+]

@@ -1,0 +1,25 @@
+{
+  "diagnosis": "Add an unchecked round-up checkbox and apply Math.ceil to the per-person amount only when it is selected.",
+  "edits": [
+    {
+      "file": "app/index.html",
+      "find": "      <input id=\"people\" name=\"people\" type=\"number\" min=\"1\" step=\"1\" value=\"2\" required>\n      <button id=\"calc\" type=\"submit\">Calculate</button>",
+      "replace": "      <input id=\"people\" name=\"people\" type=\"number\" min=\"1\" step=\"1\" value=\"2\" required>\n      <label><input id=\"round-up\" name=\"round-up\" type=\"checkbox\"> Round up each share to the next whole dollar</label>\n      <button id=\"calc\" type=\"submit\">Calculate</button>"
+    },
+    {
+      "file": "app/app.js",
+      "find": "function splitBill(bill, tipPercent, people) {\n  const tip = bill * (tipPercent / 100);\n  const total = bill + tip;\n  const perPerson = total / people;\n  return { tip, total, perPerson };\n}",
+      "replace": "function splitBill(bill, tipPercent, people, roundUp = false) {\n  const tip = bill * (tipPercent / 100);\n  const total = bill + tip;\n  const perPerson = roundUp ? Math.ceil(total / people) : total / people;\n  return { tip, total, perPerson };\n}"
+    },
+    {
+      "file": "app/app.js",
+      "find": "  const people = parseInt(document.getElementById(\"people\").value, 10);\n  const error = document.getElementById(\"error\");",
+      "replace": "  const people = parseInt(document.getElementById(\"people\").value, 10);\n  const roundUp = document.getElementById(\"round-up\").checked;\n  const error = document.getElementById(\"error\");"
+    },
+    {
+      "file": "app/app.js",
+      "find": "  const { tip, total, perPerson } = splitBill(bill, tipPercent, people);",
+      "replace": "  const { tip, total, perPerson } = splitBill(bill, tipPercent, people, roundUp);"
+    }
+  ]
+}

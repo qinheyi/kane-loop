@@ -1,0 +1,26 @@
+{"type":"stream_start","cli_version":"0.10.4","surface":"run","pid":431462,"v":1,"ts":"2026-11-16T03:41:28.786Z"}
+{"type":"recording_state","enabled":true,"session_id":"355d50cb-7d38-49b0-9cd8-91188276ca4f","persist":false,"v":1,"ts":"2026-11-16T03:41:28.799Z"}
+{"type":"skill_update_available","current":null,"latest":"0.1.4","install_cmd":"kane-cli install skill","v":1,"ts":"2026-11-16T03:41:30.677Z"}
+{"type":"bifurcation","flows":["Navigate to http://localhost:4173 then enter 100 in the Bill amount field\nset Tip percent to 15\nset Number of people to 3\ncheck the Round up each share checkbox\nclick Calculate\nthen verify the page says Each person pays $39.00"],"count":1,"v":1,"ts":"2026-11-16T03:41:36.187Z"}
+{"step":2,"status":"running","remark":"Step 1","v":1,"ts":"2026-11-16T03:41:36.423Z"}
+{"step":2,"status":"done","remark":"navigate: Navigate to http://localhost:4173","v":1,"ts":"2026-11-16T03:41:36.424Z"}
+{"step":3,"status":"running","remark":"Step 2","v":1,"ts":"2026-11-16T03:41:39.853Z"}
+{"step":3,"status":"done","remark":"wait: queued plan (3 steps): type \"Bill amount\"; type \"Tip percent\"; type \"Number of p","v":1,"ts":"2026-11-16T03:41:46.662Z"}
+{"step":4,"status":"running","remark":"Step 3","v":1,"ts":"2026-11-16T03:41:47.254Z"}
+{"step":4,"status":"done","remark":"type: Type \"100\" into \"Bill amount\"","v":1,"ts":"2026-11-16T03:41:47.402Z"}
+{"step":5,"status":"running","remark":"Step 4","v":1,"ts":"2026-11-16T03:41:47.990Z"}
+{"step":5,"status":"done","remark":"type: Type \"15\" into \"Tip percent\"","v":1,"ts":"2026-11-16T03:41:48.107Z"}
+{"step":6,"status":"running","remark":"Step 5","v":1,"ts":"2026-11-16T03:41:48.691Z"}
+{"step":6,"status":"done","remark":"","v":1,"ts":"2026-11-16T03:41:48.963Z"}
+{"step":7,"status":"running","remark":"Step 6","v":1,"ts":"2026-11-16T03:41:49.557Z"}
+{"step":7,"status":"done","remark":"type: Typing number of people","v":1,"ts":"2026-11-16T03:41:54.670Z"}
+{"step":8,"status":"running","remark":"Step 7","v":1,"ts":"2026-11-16T03:41:55.257Z"}
+{"step":8,"status":"done","remark":"click: Clicking the Round up each share checkbox","v":1,"ts":"2026-11-16T03:41:59.693Z"}
+{"step":9,"status":"running","remark":"Step 8","v":1,"ts":"2026-11-16T03:42:00.292Z"}
+{"step":9,"status":"done","remark":"click: Clicking Calculate in the SplitBill form","v":1,"ts":"2026-11-16T03:42:03.760Z"}
+{"step":10,"status":"running","remark":"Step 9","v":1,"ts":"2026-11-16T03:42:04.356Z"}
+{"step":10,"status":"done","remark":"analyze: the page says Each person pays $39.00","v":1,"ts":"2026-11-16T03:42:13.631Z"}
+{"step":11,"status":"running","remark":"Step 10","v":1,"ts":"2026-11-16T03:42:14.226Z"}
+{"step":11,"status":"done","remark":"assert: the page says Each person pays $39.00","v":1,"ts":"2026-11-16T03:42:14.232Z"}
+{"type":"coverage","status":"skipped","reason":"not_assurance_project","pack":"/home/box/.testmuai/kaneai/sessions/355d50cb-7d38-49b0-9cd8-91188276ca4f/evidence/8cf9afff-b277-4e7e-a6f4-bd863ea74bc3.evidence","v":1,"ts":"2026-11-16T03:42:24.894Z"}
+{"type":"run_end","status":"passed","summary":"Filled in the tip calculator with a $100 bill, a 15% tip, and 3 people.\nEnabled rounding up each person's share and selected Calculate.\nThe calculator showed that each person pays $39.00.","one_liner":"calculated a rounded tip split on the tip calculator","final_state":{"url":"http://localhost:4173/","each_person_pays_amount":"Each person pays $39.00 is present"},"reason":"Objective completed","duration":42.8,"bifurcated":false,"total_runs":1,"context":{"memory":{"each_person_pays_amount":{"extracted_value":"true","operator":"equals","transforms":[],"json_path":null,"reasoning":"value: 'true' -> 'true'; equals 'true' -> PASS","analyzer_type":"visual","step":9,"query":"whether Each person pays $39.00 is present (in the bill results)","condition":"the page says Each person pays $39.00","human_description":"Checking whether the each-person payment amount is present","expected_value":"true","subject":"Each person pays $39.00","must_be":"present"}},"variables":{"each_person_pays_amount":{"syntax":"{{each_person_pays_amount}}","value":"true","type":"memory","secret":false}},"pointer":"(passed) calculated a rounded tip split on the tip calculator"},"credits_consumed":21.078667499999998,"session_dir":"/home/box/.testmuai/kaneai/sessions/355d50cb-7d38-49b0-9cd8-91188276ca4f","run_dir":"/home/box/.testmuai/kaneai/sessions/355d50cb-7d38-49b0-9cd8-91188276ca4f/runs/0","result_code":100,"reason_code":"success.complete","per_flow_metadata":[{"result_code":"100","reason_code":"success.complete","error_message":null,"summary":"Filled in the tip calculator with a $100 bill, a 15% tip, and 3 people.\nEnabled rounding up each person's share and selected Calculate.\nThe calculator showed that each person pays $39.00.","one_liner":"calculated a rounded tip split on the tip calculator","credits_consumed":21.078667499999998}],"run_id":"run-0","test_url":"https://test-manager.lambdatest.com/projects/01M7H6CPK23PWTY8SBYSKWSDNA/test-cases/01M7H746277MP8BP8R7WVC1Z26/dashboard/share/US_620DSOVPIJ6FF5UQ0VFR079UZL3O9T30HFLR7C2S03RE9PBJ787YLMDZ566RZVOQ?type=summary&agentView=true&fqdn=summary-page","coverage":{"status":"skipped"},"v":1,"ts":"2026-11-16T03:42:24.894Z"}

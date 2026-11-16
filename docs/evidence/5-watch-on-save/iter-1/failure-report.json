@@ -1,0 +1,98 @@
+[
+  {
+    "flow": "split-three-ways",
+    "objective": "Go to http://localhost:4173, enter 120 in the Bill amount field, set Tip percent to 15, set Number of people to 3, click Calculate, then verify the page says Each person pays $46.00",
+    "kane_status": "failed",
+    "exit_code": 1,
+    "reason": "All fields are valid and Calculate was activated twice, but no result text appears.",
+    "reason_code": "assertion_error.confirmed_product_bug",
+    "summary": "The page crashes while formatting the calculation result, so it cannot display the amount each person should pay.\nFix the calculation result formatting so the value is converted to a number before it is displayed, then retest with 120, 15%, and 3 people.\nevidence: console_error: n.toFixed is not a function",
+    "final_state": {},
+    "failed_assertions": [],
+    "failed_steps": [
+      "wait: Waiting after attempting calculation"
+    ],
+    "last_steps": [
+      "done: type: Type \"3\" into \"Number of people\"",
+      "done: ",
+      "done: click: Clicking Calculate",
+      "done: wait: PRIMARY: wait 500 ms for the calculator result to render",
+      "done: press_key: PRIMARY: press the Enter key to submit the focused Calculate button",
+      "failed: wait: Waiting after attempting calculation"
+    ],
+    "browser_console": [
+      {
+        "marker": "step",
+        "step": "0-9",
+        "ordinal": 9
+      },
+      {
+        "sequence": 0,
+        "level": "error",
+        "text": "n.toFixed is not a function",
+        "url": "",
+        "line": 0,
+        "step": "0-9"
+      },
+      {
+        "marker": "step",
+        "step": "0-11",
+        "ordinal": 11
+      },
+      {
+        "sequence": 1,
+        "level": "error",
+        "text": "n.toFixed is not a function",
+        "url": "",
+        "line": 0,
+        "step": "0-11"
+      }
+    ],
+    "failure_record": "generated: 2026-11-16T03:50:21.415Z\ntotals:\n  failures: 1\n  triaged: 1\n  untriaged: 0\nfailures:\n  - test: go-to-http-localhost-4173-enter-120-in-t-433d135b\n    ordinal: 9\n    step: 0-9\n    status: failed\n    path: tests/go-to-http-localhost-4173-enter-120-in-t-433d135b/steps/9-0-9/failure.yaml\n    title: Calculation crashes on valid bill inputs\n    triage_status: triaged\n"
+  },
+  {
+    "flow": "round-up-share",
+    "objective": "Go to http://localhost:4173, enter 100 in the Bill amount field, set Tip percent to 15, set Number of people to 3, check the Round up each share checkbox, click Calculate, then verify the page says Each person pays $39.00",
+    "kane_status": "failed",
+    "exit_code": 1,
+    "reason": "Final verification failed: \"the page says Each person pays $39.00\"",
+    "reason_code": "assertion_error.final_verification",
+    "summary": "The form values and round-up option were set, but the agent did not perform the required Calculate action before checking for “Each person pays $39.00.”\nAdd a click on Calculate after selecting Round up, then wait for the result text before verifying it.",
+    "final_state": {},
+    "failed_assertions": [
+      {
+        "condition": "the page says Each person pays $39.00",
+        "expected": "true",
+        "observed": "false",
+        "reasoning": "value: 'false' -> 'false'; equals 'true' -> FAIL"
+      }
+    ],
+    "failed_steps": [
+      "assert: the page says Each person pays $39.00"
+    ],
+    "last_steps": [
+      "done: ",
+      "done: type: Typing number of people as 3 in the tip calculator",
+      "done: click: Clicking the Round up each share checkbox",
+      "done: click: Clicking Calculate",
+      "done: analyze: the page says Each person pays $39.00",
+      "failed: assert: the page says Each person pays $39.00"
+    ],
+    "browser_console": [
+      {
+        "marker": "step",
+        "step": "0-8",
+        "ordinal": 8
+      },
+      {
+        "sequence": 0,
+        "level": "error",
+        "text": "n.toFixed is not a function",
+        "url": "",
+        "line": 0,
+        "step": "0-8"
+      }
+    ],
+    "failure_record": "generated: 2026-11-16T03:52:28.987Z\ntotals:\n  failures: 1\n  triaged: 1\n  untriaged: 0\nfailures:\n  - test: go-to-http-localhost-4173-enter-100-in-t-28747329\n    ordinal: 9\n    step: 0-9\n    status: broken\n    path: tests/go-to-http-localhost-4173-enter-100-in-t-28747329/steps/9-0-9/failure.yaml\n    title: Calculation skipped before result assertion\n    triage_status: triaged\n"
+  }
+]

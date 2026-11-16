@@ -1,0 +1,10 @@
+{
+  "diagnosis": "The Bill amount input value is read as a string, so multiplication yields a string and `money()` crashes when calling `toFixed()`. Parse the bill as a number before validation and calculation.",
+  "edits": [
+    {
+      "file": "app/app.js",
+      "find": "  const bill = document.getElementById(\"bill\").value;",
+      "replace": "  const bill = parseFloat(document.getElementById(\"bill\").value);"
+    }
+  ]
+}

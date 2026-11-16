@@ -8,7 +8,8 @@ const files = execFileSync("git", ["ls-files", "-co", "--exclude-standard"], { e
 let hits = 0;
 for (const f of files) {
   let text; try { text = fs.readFileSync(f, "latin1"); } catch { continue; }
-  for (const [n, v] of values) if (text.includes(v)) { console.log(`LEAK: value of ${n} found in ${f}`); hits++; }
+  // A username that doubles as the public GitHub handle is allowed inside github.com/<handle> URLs only.
+  for (const [n, v] of values) if (text.split(`github.com/${v}`).join("").includes(v)) { console.log(`LEAK: value of ${n} found in ${f}`); hits++; }
   if (/-----BEGIN [A-Z ]*PRIVATE KEY-----|sk-[A-Za-z0-9]{20,}|eyJ[A-Za-z0-9_-]{30,}\.[A-Za-z0-9_-]{20,}/.test(text)) { console.log(`SUSPICIOUS token-like string in ${f}`); hits++; }
 }
 console.log(`secret-scan: ${files.length} files, ${values.length} secret values checked, ${hits} finding(s)`);

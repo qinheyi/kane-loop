@@ -1,0 +1,78 @@
+[
+  {
+    "flow": "split-three-ways",
+    "objective": "Go to http://localhost:4173, enter 120 in the Bill amount field, set Tip percent to 15, set Number of people to 3, click Calculate, then verify the page says Each person pays $46.00",
+    "kane_status": "failed",
+    "exit_code": 1,
+    "reason": "Calculate was clicked with valid inputs, but page text and DOM contain no result output.",
+    "reason_code": "assertion_error.confirmed_product_bug",
+    "summary": "The calculation page crashes while preparing the amount to display, so it never shows the result.\nFix the calculation result formatting so the computed per-person amount is treated as a number before it is displayed, then retest with 120, 15%, and 3 people.\nevidence: console_error: n.toFixed is not a function",
+    "final_state": {},
+    "failed_assertions": [],
+    "failed_steps": [
+      "wait: Waiting while confirming whether the calculation result appears"
+    ],
+    "last_steps": [
+      "done: type: Type \"15\" into \"Tip percent\"",
+      "done: ",
+      "done: type: Entering number of people as 3",
+      "done: click: Clicking Calculate",
+      "done: wait: PRIMARY: wait 1000 ms for the calculation result to render",
+      "failed: wait: Waiting while confirming whether the calculation result appears"
+    ],
+    "browser_console": [
+      {
+        "marker": "step",
+        "step": "0-7",
+        "ordinal": 7
+      },
+      {
+        "sequence": 0,
+        "level": "error",
+        "text": "n.toFixed is not a function",
+        "url": "",
+        "line": 0,
+        "step": "0-7"
+      }
+    ],
+    "failure_record": "generated: 2026-11-16T03:43:40.136Z\ntotals:\n  failures: 1\n  triaged: 1\n  untriaged: 0\nfailures:\n  - test: go-to-http-localhost-4173-enter-120-in-t-40eb3c5d\n    ordinal: 7\n    step: 0-7\n    status: failed\n    path: tests/go-to-http-localhost-4173-enter-120-in-t-40eb3c5d/steps/7-0-7/failure.yaml\n    title: Calculation crashes when formatting the per-person amount\n    triage_status: triaged\n"
+  },
+  {
+    "flow": "round-up-share",
+    "objective": "Go to http://localhost:4173, enter 100 in the Bill amount field, set Tip percent to 15, set Number of people to 3, check the Round up each share checkbox, click Calculate, then verify the page says Each person pays $39.00",
+    "kane_status": "failed",
+    "exit_code": 1,
+    "reason": "All valid inputs were set and Calculate clicked, but no result text rendered after waiting.",
+    "reason_code": "assertion_error.confirmed_product_bug",
+    "summary": "The calculation page tries to format a value that is not a number, so it stops before it can show each person's share.\nFix the calculation code so the per-person amount is converted to a number before it is formatted, then add a test for this valid round-up calculation.\nevidence: console_error: n.toFixed is not a function",
+    "final_state": {},
+    "failed_assertions": [],
+    "failed_steps": [
+      "wait: Waiting after Calculate for the calculation result"
+    ],
+    "last_steps": [
+      "done: ",
+      "done: type: Typing number of people as 3",
+      "done: click: Clicking round up each share checkbox",
+      "done: click: Clicking Calculate",
+      "done: wait: PRIMARY: wait for the calculation result to appear",
+      "failed: wait: Waiting after Calculate for the calculation result"
+    ],
+    "browser_console": [
+      {
+        "marker": "step",
+        "step": "0-8",
+        "ordinal": 8
+      },
+      {
+        "sequence": 0,
+        "level": "error",
+        "text": "n.toFixed is not a function",
+        "url": "",
+        "line": 0,
+        "step": "0-8"
+      }
+    ],
+    "failure_record": "generated: 2026-11-16T03:46:13.857Z\ntotals:\n  failures: 1\n  triaged: 1\n  untriaged: 0\nfailures:\n  - test: go-to-http-localhost-4173-enter-100-in-t-36894be3\n    ordinal: 8\n    step: 0-8\n    status: failed\n    path: tests/go-to-http-localhost-4173-enter-100-in-t-36894be3/steps/8-0-8/failure.yaml\n    title: Calculate crashes when formatting the per-person amount\n    triage_status: triaged\n"
+  }
+]

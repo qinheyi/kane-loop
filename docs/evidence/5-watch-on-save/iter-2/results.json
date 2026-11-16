@@ -1,0 +1,293 @@
+{
+  "iteration": 2,
+  "kind": "verify",
+  "results": [
+    {
+      "flow": "split-three-ways",
+      "objective": "Go to http://localhost:4173, enter 120 in the Bill amount field, set Tip percent to 15, set Number of people to 3, click Calculate, then verify the page says Each person pays $46.00",
+      "exitCode": 0,
+      "status": "passed",
+      "passed": true,
+      "summary": "Filled in the tip calculator with a $120 bill, a 15% tip, and 3 people.\nClicked Calculate to update the bill summary.\nThe calculator showed that each person pays $46.00.",
+      "oneLiner": "calculated a tip split on the tip calculator",
+      "reason": "Objective completed",
+      "reasonCode": "success.complete",
+      "finalState": {
+        "url": "http://localhost:4173/",
+        "each_person_pays_amount": "$46.00"
+      },
+      "assertions": {
+        "each_person_pays_amount": {
+          "extracted_value": "$46.00",
+          "operator": "equals",
+          "transforms": [
+            "strip"
+          ],
+          "json_path": null,
+          "reasoning": "value: '$46.00' -> '$46.00' after ['strip']; equals '$46.00' -> PASS",
+          "analyzer_type": "textual_visual",
+          "step": 10,
+          "query": "the each-person payment amount shown in the bill summary",
+          "condition": "the page says Each person pays $46.00",
+          "human_description": "Reading the each-person payment amount from the bill summary",
+          "expected_value": "$46.00",
+          "code_js": "el(19).textContent",
+          "wrapped_js": "(els) => {\n  const __m = {19: 0};\n  const el = (i) => els[__m[i]];\n  const __v = (el(19).textContent);\n  return (typeof __v === 'boolean' ? String(__v) : __v);\n}",
+          "locators": [
+            "internal:text=\"$46.00\"i"
+          ],
+          "needs_unit_conversion": false
+        }
+      },
+      "credits": 11.142006,
+      "duration": 34.3,
+      "testUrl": "https://test-manager.lambdatest.com/projects/01M7H6CPK23PWTY8SBYSKWSDNA/test-cases/01M7H7RH486WFHAFWJRAW7MTJC/dashboard/share/US_XC3C4OBYIEIF8X9Q2NCQTMCOCAMH35QAN22OHW5GF0F1ERB5JLTA9EM98T3HE67Q?type=summary&agentView=true&fqdn=summary-page",
+      "sessionDir": "/home/box/.testmuai/kaneai/sessions/c8723517-6350-4cb9-9ac9-50a1d255ddf6",
+      "evidencePack": "/home/box/.testmuai/kaneai/sessions/c8723517-6350-4cb9-9ac9-50a1d255ddf6/evidence/efe11987-21c4-44a1-8206-f71bd31044b7.evidence",
+      "steps": [
+        {
+          "step": 2,
+          "status": "done",
+          "remark": "navigate: Navigate to http://localhost:4173"
+        },
+        {
+          "step": 3,
+          "status": "done",
+          "remark": "wait: queued plan (3 steps): type \"Bill amount\"; type \"Tip percent\"; type \"Number of p"
+        },
+        {
+          "step": 4,
+          "status": "done",
+          "remark": "type: Type \"120\" into \"Bill amount\""
+        },
+        {
+          "step": 5,
+          "status": "done",
+          "remark": "type: Type \"15\" into \"Tip percent\""
+        },
+        {
+          "step": 6,
+          "status": "done",
+          "remark": ""
+        },
+        {
+          "step": 7,
+          "status": "done",
+          "remark": "wait: queued plan (2 steps): type \"Number of people\"; click \"Calculate\""
+        },
+        {
+          "step": 8,
+          "status": "done",
+          "remark": "type: Type \"3\" into \"Number of people\""
+        },
+        {
+          "step": 9,
+          "status": "done",
+          "remark": ""
+        },
+        {
+          "step": 10,
+          "status": "done",
+          "remark": "click: Clicking Calculate button"
+        },
+        {
+          "step": 11,
+          "status": "done",
+          "remark": "analyze: the page says Each person pays $46.00"
+        },
+        {
+          "step": 12,
+          "status": "done",
+          "remark": "assert: the page says Each person pays $46.00"
+        }
+      ],
+      "errors": [],
+      "ndjsonPath": "/workspace/kane-loop/.kane-loop/runs/2026-11-16T03-49-20-watch/iter-2/split-three-ways.ndjson",
+      "stderrPath": "/workspace/kane-loop/.kane-loop/runs/2026-11-16T03-49-20-watch/iter-2/split-three-ways.stderr.log",
+      "seconds": 48.654
+    },
+    {
+      "flow": "rejects-zero-people",
+      "objective": "Go to http://localhost:4173, enter 50 in the Bill amount field, set Number of people to 0, click Calculate, then verify an error message asking for at least 1 person is visible",
+      "exitCode": 0,
+      "status": "passed",
+      "passed": true,
+      "summary": "Entered a bill amount of 50 and set the number of people to 0 in the bill calculator.\nClicked Calculate.\nThe calculator displayed an error asking for at least 1 person, as expected.",
+      "oneLiner": "validated the minimum-person error on the bill calculator",
+      "reason": "Objective completed",
+      "reasonCode": "success.complete",
+      "finalState": {
+        "url": "http://localhost:4173/",
+        "at_least_1_person_error_visible": "true"
+      },
+      "assertions": {
+        "at_least_1_person_error_visible": {
+          "extracted_value": "true",
+          "operator": "equals",
+          "transforms": [],
+          "json_path": null,
+          "reasoning": "value: 'true' -> 'true'; equals 'true' -> PASS",
+          "analyzer_type": "textual_visual",
+          "step": 8,
+          "query": "whether an error message asking for at least 1 person is present (in the form validation alert)",
+          "condition": "an error message asking for at least 1 person is visible",
+          "human_description": "Checking whether the at-least-one-person error message is visible",
+          "expected_value": "true",
+          "subject": "an error message asking for at least 1 person",
+          "must_be": "present",
+          "code_js": "/at least\\s+1\\s+person/i.test(el(13).textContent || '')",
+          "wrapped_js": "(els) => {\n  const __m = {13: 0};\n  const el = (i) => els[__m[i]];\n  const __v = (/at least\\s+1\\s+person/i.test(el(13).textContent || ''));\n  return (typeof __v === 'boolean' ? String(__v) : __v);\n}",
+          "locators": [
+            "internal:text=\"Please enter a bill above 0,\"i"
+          ],
+          "needs_unit_conversion": false
+        }
+      },
+      "credits": 9.964686,
+      "duration": 38.7,
+      "testUrl": "https://test-manager.lambdatest.com/projects/01M7H6CPK23PWTY8SBYSKWSDNA/test-cases/01M7H7T0PVN7NCXV2YH3DK0ZXR/dashboard/share/US_AIXLVJRKHPB9J957YOZWSDTOP8VSSHLL9SRV2FOI0PBF61RMSY1XWT50JZPO5HXZ?type=summary&agentView=true&fqdn=summary-page",
+      "sessionDir": "/home/box/.testmuai/kaneai/sessions/d3677291-4a86-4156-b028-509f28bcbd92",
+      "evidencePack": "/home/box/.testmuai/kaneai/sessions/d3677291-4a86-4156-b028-509f28bcbd92/evidence/45144edb-af13-4db5-9089-2d763f55e32c.evidence",
+      "steps": [
+        {
+          "step": 2,
+          "status": "done",
+          "remark": "navigate: Navigate to http://localhost:4173"
+        },
+        {
+          "step": 3,
+          "status": "done",
+          "remark": "wait: queued plan (3 steps): type \"Bill amount\"; type \"Number of people\"; click \"Calcu"
+        },
+        {
+          "step": 4,
+          "status": "done",
+          "remark": "type: Type \"50\" into \"Bill amount\""
+        },
+        {
+          "step": 5,
+          "status": "done",
+          "remark": "type: Type \"0\" into \"Number of people\""
+        },
+        {
+          "step": 6,
+          "status": "done",
+          "remark": ""
+        },
+        {
+          "step": 7,
+          "status": "done",
+          "remark": "wait: PRIMARY: confirm the bill calculator inputs have been filled"
+        },
+        {
+          "step": 8,
+          "status": "done",
+          "remark": "click: Clicking Calculate"
+        },
+        {
+          "step": 9,
+          "status": "done",
+          "remark": "analyze: ANALYZE(textual_visual, 'an error message asking for at least 1 person is visibl"
+        },
+        {
+          "step": 10,
+          "status": "done",
+          "remark": "assert: an error message asking for at least 1 person is visible"
+        }
+      ],
+      "errors": [],
+      "ndjsonPath": "/workspace/kane-loop/.kane-loop/runs/2026-11-16T03-49-20-watch/iter-2/rejects-zero-people.ndjson",
+      "stderrPath": "/workspace/kane-loop/.kane-loop/runs/2026-11-16T03-49-20-watch/iter-2/rejects-zero-people.stderr.log",
+      "seconds": 52.603
+    },
+    {
+      "flow": "round-up-share",
+      "objective": "Go to http://localhost:4173, enter 100 in the Bill amount field, set Tip percent to 15, set Number of people to 3, check the Round up each share checkbox, click Calculate, then verify the page says Each person pays $39.00",
+      "exitCode": 0,
+      "status": "passed",
+      "passed": true,
+      "summary": "Filled the tip calculator with a $100 bill, a 15% tip, and 3 people, with rounding up each share selected.\nClicked Calculate.\nThe calculator showed that each person pays $39.00.",
+      "oneLiner": "calculated a rounded tip split on the tip calculator",
+      "reason": "Objective completed",
+      "reasonCode": "success.complete",
+      "finalState": {
+        "url": "http://localhost:4173/",
+        "each_person_pays_amount": "$39.00"
+      },
+      "assertions": {
+        "each_person_pays_amount_check": {
+          "extracted_value": "$39.00",
+          "operator": "equals",
+          "transforms": [
+            "strip"
+          ],
+          "json_path": null,
+          "reasoning": "value: '$39.00' -> '$39.00' after ['strip']; equals '$39.00' -> PASS",
+          "analyzer_type": "textual_visual",
+          "step": 7,
+          "query": "the amount shown next to Each person pays",
+          "condition": "the page says Each person pays $39.00",
+          "human_description": "Reading the amount each person pays",
+          "expected_value": "$39.00",
+          "code_js": "el(19).textContent",
+          "wrapped_js": "(els) => {\n  const __m = {19: 0};\n  const el = (i) => els[__m[i]];\n  const __v = (el(19).textContent);\n  return (typeof __v === 'boolean' ? String(__v) : __v);\n}",
+          "locators": [
+            "internal:text=\"$39.00\"i"
+          ],
+          "needs_unit_conversion": false
+        }
+      },
+      "credits": 9.624369000000002,
+      "duration": 32.4,
+      "testUrl": "https://test-manager.lambdatest.com/projects/01M7H6CPK23PWTY8SBYSKWSDNA/test-cases/01M7H7VM2WSPV6RYB76Z1A0XHV/dashboard/share/US_NZQTG0N8KJEAPT8ZR2PJE6ZJ2XOMBZ69QPBLSBVCYVTQX7IOJ49NE0BNUW9PNIQN?type=summary&agentView=true&fqdn=summary-page",
+      "sessionDir": "/home/box/.testmuai/kaneai/sessions/17c61f97-fb2e-4afb-bab8-9538eded1b19",
+      "evidencePack": "/home/box/.testmuai/kaneai/sessions/17c61f97-fb2e-4afb-bab8-9538eded1b19/evidence/d4878a69-f1f1-4a90-8c1e-191ca7ff81c8.evidence",
+      "steps": [
+        {
+          "step": 2,
+          "status": "done",
+          "remark": "navigate: Navigate to http://localhost:4173"
+        },
+        {
+          "step": 3,
+          "status": "done",
+          "remark": "wait: queued plan (2 steps): type \"Bill amount\"; type \"Number of people\""
+        },
+        {
+          "step": 4,
+          "status": "done",
+          "remark": "type: Type \"100\" into \"Bill amount\""
+        },
+        {
+          "step": 5,
+          "status": "done",
+          "remark": "type: Type \"3\" into \"Number of people\""
+        },
+        {
+          "step": 6,
+          "status": "done",
+          "remark": "click: Clicking Round up each share checkbox"
+        },
+        {
+          "step": 7,
+          "status": "done",
+          "remark": "click: Clicking Calculate button"
+        },
+        {
+          "step": 8,
+          "status": "done",
+          "remark": "analyze: the page says Each person pays $39.00"
+        },
+        {
+          "step": 9,
+          "status": "done",
+          "remark": "assert: the page says Each person pays $39.00"
+        }
+      ],
+      "errors": [],
+      "ndjsonPath": "/workspace/kane-loop/.kane-loop/runs/2026-11-16T03-49-20-watch/iter-2/round-up-share.ndjson",
+      "stderrPath": "/workspace/kane-loop/.kane-loop/runs/2026-11-16T03-49-20-watch/iter-2/round-up-share.stderr.log",
+      "seconds": 47.454
+    }
+  ]
+}
