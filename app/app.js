@@ -3,10 +3,10 @@ function money(n) {
   return "$" + n.toFixed(2);
 }
 
-function splitBill(bill, tipPercent, people) {
+function splitBill(bill, tipPercent, people, roundUp = false) {
   const tip = bill * (tipPercent / 100);
   const total = bill + tip;
-  const perPerson = total / people;
+  const perPerson = roundUp ? Math.ceil(total / people) : total / people;
   return { tip, total, perPerson };
 }
 
@@ -15,6 +15,7 @@ document.getElementById("split-form").addEventListener("submit", (event) => {
   const bill = parseFloat(document.getElementById("bill").value);
   const tipPercent = parseFloat(document.getElementById("tip").value);
   const people = parseInt(document.getElementById("people").value, 10);
+  const roundUp = document.getElementById("round-up").checked;
   const error = document.getElementById("error");
   const result = document.getElementById("result");
 
@@ -25,7 +26,7 @@ document.getElementById("split-form").addEventListener("submit", (event) => {
     return;
   }
 
-  const { tip, total, perPerson } = splitBill(bill, tipPercent, people);
+  const { tip, total, perPerson } = splitBill(bill, tipPercent, people, roundUp);
   document.getElementById("tip-amount").textContent = money(tip);
   document.getElementById("total").textContent = money(total);
   document.getElementById("per-person").textContent = money(perPerson);

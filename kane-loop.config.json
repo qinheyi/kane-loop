@@ -2,7 +2,10 @@
   "app": {
     "url": "http://localhost:4173",
     "start": "node server.js 4173",
-    "files": ["app/app.js", "app/index.html"]
+    "files": [
+      "app/app.js",
+      "app/index.html"
+    ]
   },
   "flows": [
     {
@@ -12,8 +15,15 @@
     {
       "name": "rejects-zero-people",
       "objective": "Go to http://localhost:4173, enter 50 in the Bill amount field, set Number of people to 0, click Calculate, then verify an error message asking for at least 1 person is visible"
+    },
+    {
+      "name": "round-up-share",
+      "objective": "Go to http://localhost:4173, enter 100 in the Bill amount field, set Tip percent to 15, set Number of people to 3, check the Round up each share checkbox, click Calculate, then verify the page says Each person pays $39.00"
     }
   ],
   "maxIterations": 4,
-  "kane": { "timeout": 300, "headless": true }
+  "kane": {
+    "timeout": 300,
+    "headless": true
+  }
 }

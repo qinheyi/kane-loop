@@ -23,7 +23,7 @@ const green = (s) => c(32, s), red = (s) => c(31, s), dim = (s) => c(2, s), bold
 const log = (...a) => console.log(...a);
 
 if (cmd === "help" || cmd === "--help") {
-  log(fs.readFileSync(new URL(import.meta.url), "utf8").split("\n").slice(1, 9).map((l) => l.replace(/^\/\/ ?/, "")).join("\n"));
+  log(fs.readFileSync(new URL(import.meta.url), "utf8").split("\n").slice(1).filter((l, i, a) => a.slice(0, i + 1).every((x) => x.startsWith("//"))).map((l) => l.replace(/^\/\/ ?/, "")).join("\n"));
   process.exit(0);
 }
 
