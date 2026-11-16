@@ -1,0 +1,7 @@
+.kane-loop/
+.testmuai/
+node_modules/
+*.evidence
+secrets/
+.env
+.vercel

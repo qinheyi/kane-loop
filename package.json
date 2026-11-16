@@ -1,0 +1,16 @@
+{
+  "name": "kane-loop",
+  "version": "0.1.0",
+  "description": "Close the loop between a coding agent and Kane CLI: verify in a real browser, feed the NDJSON failure back to the agent, patch, re-verify until green.",
+  "type": "module",
+  "bin": { "kane-loop": "bin/kane-loop.mjs" },
+  "scripts": {
+    "app": "node server.js 4173",
+    "verify": "node bin/kane-loop.mjs verify",
+    "fix": "node bin/kane-loop.mjs fix",
+    "demo:break": "node scripts/break.mjs",
+    "test": "node --test test/*.test.mjs"
+  },
+  "engines": { "node": ">=18" },
+  "license": "MIT"
+}
