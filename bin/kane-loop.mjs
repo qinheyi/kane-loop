@@ -29,10 +29,9 @@ if (cmd === "help" || cmd === "--help") {
 
 const cfg = JSON.parse(fs.readFileSync(cfgPath, "utf8"));
 const stateDir = path.join(root, ".kane-loop");
-const stamp = new Date().toISOString().replace(/[:.]/g, "-").slice(0, 19);
-const runDir = path.join(stateDir, "runs", `${stamp}-${cmd}`);
-const maxIter = Number(opt("--max", cfg.maxIterations ?? 4));
-const history = { command: cmd, started: new Date().toISOString(), cli: "kane-loop", iterations: [] };
+const canFix = cmd === "fix" || cmd === "task" || (cmd === "watch" && flag("--fix"));
+const maxIter = canFix ? Number(opt("--max", cfg.maxIterations ?? 4)) : 1;
+let runDir, history;
 
 async function ensureApp() {
   const ok = async () => { try { const r = await fetch(cfg.app.url); return r.ok; } catch { return false; } };
@@ -107,6 +106,9 @@ async function agentStep({ mode, instruction, failures, iterDir }) {
 }
 
 async function loop({ instruction } = {}) {
+  const stamp = new Date().toISOString().replace(/[:.]/g, "-").slice(0, 19);
+  runDir = path.join(stateDir, "runs", `${stamp}-${cmd}`);
+  history = { command: cmd, started: new Date().toISOString(), cli: "kane-loop", iterations: [] };
   fs.mkdirSync(runDir, { recursive: true });
   const app = await ensureApp();
   let ok = false;
@@ -134,7 +136,7 @@ async function loop({ instruction } = {}) {
         log(green(bold(`\nGREEN after ${i} Kane run(s). Snapshot saved as last-green.`)));
         break;
       }
-      if (cmd === "verify" || i === maxIter) break;
+      if (!canFix || i === maxIter) break;
       const failures = failureReport(results, evidence);
       fs.writeFileSync(path.join(iterDir, "failure-report.json"), JSON.stringify(failures, null, 2));
       const step = await agentStep({ mode: "fix", failures, iterDir });
