@@ -1,0 +1,10 @@
+{
+  "diagnosis": "The bill amount is read as a string, so `bill + tip` concatenates the two values instead of adding them numerically. Convert the bill input to a number before validation and calculation.",
+  "edits": [
+    {
+      "file": "app/app.js",
+      "find": "  const bill = document.getElementById(\"bill\").value;",
+      "replace": "  const bill = Number(document.getElementById(\"bill\").value);"
+    }
+  ]
+}

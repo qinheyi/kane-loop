@@ -1,0 +1,10 @@
+{
+  "diagnosis": "The bill is read as a string, so `bill + tip` concatenates into a string and `money(total)` calls `toFixed` on a non-number. Converting the value inside `money` ensures every currency amount is formatted safely.",
+  "edits": [
+    {
+      "file": "app/app.js",
+      "find": "function money(n) {\n  return \"$\" + n.toFixed(2);\n}",
+      "replace": "function money(n) {\n  return \"$\" + Number(n).toFixed(2);\n}"
+    }
+  ]
+}

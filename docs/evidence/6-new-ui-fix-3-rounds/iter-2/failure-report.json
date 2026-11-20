@@ -1,0 +1,57 @@
+[
+  {
+    "flow": "split-three-ways",
+    "objective": "Go to http://localhost:4173, enter 120 in the Bill amount field, set Tip percent to 15, set Number of people to 3, click Calculate, then verify the page says Each person pays $46.00",
+    "kane_status": "failed",
+    "exit_code": 1,
+    "reason": "The requested inputs display correctly, but Calculate shows $4006.00 rather than the required $46.00.",
+    "reason_code": "assertion_error.confirmed_product_bug",
+    "summary": "The calculation is using the entered values incorrectly and produces an implausible per-person amount.\nCheck the calculation used by the Calculate button. For a $120 bill with a 15% tip split among 3 people, each share should be $46.00.\nevidence: objective_contradiction: The requested inputs display correctly, but Calculate shows $4006.00 rather than the required $46.00.",
+    "final_state": {},
+    "failed_assertions": [],
+    "failed_steps": [
+      "wait: Waiting after the calculation result"
+    ],
+    "last_steps": [
+      "done: ",
+      "done: wait: queued plan (2 steps): type \"Number of people\"; click \"Calculate\"",
+      "done: type: Type \"3\" into \"Number of people\"",
+      "done: ",
+      "done: click: Clicking Calculate",
+      "failed: wait: Waiting after the calculation result"
+    ],
+    "browser_console": [],
+    "failure_record": "generated: 2026-11-20T01:39:02.695Z\ntotals:\n  failures: 1\n  triaged: 1\n  untriaged: 0\nfailures:\n  - test: go-to-http-localhost-4173-enter-120-in-t-c3157ee1\n    ordinal: 7\n    step: 0-7\n    status: failed\n    path: tests/go-to-http-localhost-4173-enter-120-in-t-c3157ee1/steps/7-0-7/failure.yaml\n    title: Split-bill calculation returns $4006.00 for valid inputs\n    triage_status: triaged\n"
+  },
+  {
+    "flow": "round-up-share",
+    "objective": "Go to http://localhost:4173, enter 100 in the Bill amount field, set Tip percent to 15, set Number of people to 3, check the Round up each share checkbox, click Calculate, then verify the page says Each person pays $39.00",
+    "kane_status": "failed",
+    "exit_code": 1,
+    "reason": "Final verification failed: \"the page says Each person pays $39.00\"",
+    "reason_code": "assertion_error.confirmed_product_bug",
+    "summary": "The calculator appears to join the bill amount and tip amount together as 10015 instead of adding $100 and $15. That creates a total of $10015.00 and an incorrect rounded share of $3339.00.\nFix the calculation to treat the bill and tip as numbers and add them. Add a regression check for $100 at 15% split among three with rounding, which should show a $15.00 tip, $115.00 total, and $39.00 per person.\nevidence: objective_contradiction: type: Type \"100\" into \"Bill amount\"\nevidence: objective_contradiction: type: Type \"15\" into \"Tip percent\"\nevidence: objective_contradiction: click: Clicking Round up each share checkbox",
+    "final_state": {},
+    "failed_assertions": [
+      {
+        "condition": "the page says Each person pays $39.00",
+        "expected": "$39.00",
+        "observed": "$3339.00",
+        "reasoning": "value: '$3339.00' -> '$3339.00' after ['strip']; equals '$39.00' -> FAIL"
+      }
+    ],
+    "failed_steps": [
+      "assert: the page says Each person pays $39.00"
+    ],
+    "last_steps": [
+      "done: ",
+      "done: type: Entering number of people as 3",
+      "done: click: Clicking Round up each share checkbox",
+      "done: click: Clicking Calculate",
+      "done: analyze: the page says Each person pays $39.00",
+      "failed: assert: the page says Each person pays $39.00"
+    ],
+    "browser_console": [],
+    "failure_record": "generated: 2026-11-20T01:40:58.034Z\ntotals:\n  failures: 1\n  triaged: 1\n  untriaged: 0\nfailures:\n  - test: go-to-http-localhost-4173-enter-100-in-t-39fbc970\n    ordinal: 9\n    step: 0-9\n    status: failed\n    path: tests/go-to-http-localhost-4173-enter-100-in-t-39fbc970/steps/9-0-9/failure.yaml\n    title: Tip calculation concatenates bill and tip values\n    triage_status: triaged\n"
+  }
+]

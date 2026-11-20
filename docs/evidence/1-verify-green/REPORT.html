@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="color-scheme" content="light dark">
+<title>kane-loop verify — GREEN</title>
+<style>
+:root{--bg:#f6f7fb;--card:#fff;--text:#0f172a;--muted:#64748b;--line:#e2e8f0;--soft:#f1f5f9;--accent:#4f46e5;--ok:#059669;--ok-bg:#ecfdf5;--bad:#dc2626;--bad-bg:#fef2f2;--ag:#7c3aed;--ag-bg:#f5f3ff;--code:#0b1020}
+@media (prefers-color-scheme:dark){:root{--bg:#0b1020;--card:#111729;--text:#e5e7eb;--muted:#94a3b8;--line:#243049;--soft:#0d1324;--accent:#818cf8;--ok:#34d399;--ok-bg:rgba(16,185,129,.12);--bad:#f87171;--bad-bg:rgba(239,68,68,.12);--ag:#a78bfa;--ag-bg:rgba(139,92,246,.14);--code:#060a16}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:15px/1.55 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.wrap{max-width:1040px;margin:0 auto;padding:32px 20px 60px}
+header.top{display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between;margin-bottom:22px}
+.brand{display:flex;align-items:center;gap:12px}.logo{width:40px;height:40px;border-radius:11px;background:linear-gradient(135deg,#4f46e5,#7c3aed);display:grid;place-items:center;color:#fff;font-weight:800}
+h1{margin:0;font-size:1.45rem;letter-spacing:-.02em}.sub{margin:0;color:var(--muted);font-size:.9rem}
+.verdict{font-weight:800;letter-spacing:.04em;padding:10px 18px;border-radius:999px;font-size:.95rem}.verdict.pass{background:var(--ok-bg);color:var(--ok)}.verdict.fail{background:var(--bad-bg);color:var(--bad)}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:28px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px}.stat b{display:block;font-size:1.5rem;letter-spacing:-.02em;font-variant-numeric:tabular-nums}.stat span{color:var(--muted);font-size:.82rem}
+.step{display:grid;grid-template-columns:36px 1fr;gap:14px;position:relative}.step:not(:last-child)::before{content:"";position:absolute;left:17px;top:38px;bottom:-6px;width:2px;background:var(--line)}
+.node{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;font-weight:800;color:#fff;z-index:1}.node.pass{background:var(--ok)}.node.fail{background:var(--bad)}.node.agent{background:var(--ag)}
+.body{padding-bottom:22px;min-width:0}.body h3{margin:6px 0 12px;font-size:1.05rem;display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+.pill{font-size:.75rem;font-weight:700;padding:3px 10px;border-radius:999px}.pill.pass{background:var(--ok-bg);color:var(--ok)}.pill.fail{background:var(--bad-bg);color:var(--bad)}.pill.agent{background:var(--ag-bg);color:var(--ag)}
+.flow{display:grid;grid-template-columns:1fr 220px;gap:16px;background:var(--card);border:1px solid var(--line);border-left:4px solid var(--ok);border-radius:14px;padding:14px 16px;margin-bottom:10px}
+.flow.fail{border-left-color:var(--bad)}.flow-main{min-width:0}
+.flow-head{display:flex;flex-wrap:wrap;align-items:center;gap:10px}.flow-head h4{margin:0;font-size:1rem;font-family:ui-monospace,SFMono-Regular,Menlo,monospace}.flow-head .meta{margin-left:auto;color:var(--muted);font-size:.82rem;font-variant-numeric:tabular-nums}
+.badge{font-size:.7rem;font-weight:800;letter-spacing:.06em;padding:3px 8px;border-radius:6px;color:#fff}.badge.pass{background:var(--ok)}.badge.fail{background:var(--bad)}
+.objective{margin:8px 0 6px;color:var(--muted);font-size:.88rem}.kane{margin:6px 0}.failstep{margin:6px 0;color:var(--bad);font-size:.88rem}.console{margin:6px 0;font-size:.88rem}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.84em;background:var(--soft);border:1px solid var(--line);padding:1px 6px;border-radius:6px}code.code{color:var(--bad)}
+details{margin:6px 0;font-size:.85rem}summary{cursor:pointer;color:var(--muted)}.steps{margin:6px 0 0;padding-left:28px;color:var(--muted)}.steps li.failed{color:var(--bad);font-weight:600}
+.link{display:inline-block;margin-top:6px;color:var(--accent);font-size:.85rem;text-decoration:none;font-weight:600}.link:hover{text-decoration:underline}
+.shot img{width:100%;border-radius:10px;border:1px solid var(--line);display:block}
+.agent-card{background:var(--ag-bg);border:1px solid color-mix(in srgb,var(--ag) 30%,transparent);border-radius:14px;padding:14px 16px}.diag{margin:0 0 10px}.diag.muted{color:var(--muted)}
+pre.diff{margin:0;background:var(--code);color:#cbd5e1;border-radius:10px;padding:12px 14px;overflow:auto;font:12.5px/1.6 ui-monospace,SFMono-Regular,Menlo,monospace}
+pre.diff span{display:block;white-space:pre}pre.diff .add{color:#4ade80;background:rgba(74,222,128,.08)}pre.diff .del{color:#f87171;background:rgba(248,113,113,.08)}pre.diff .hunk{color:#93c5fd}pre.diff .meta{color:#94a3b8}
+footer{margin-top:20px;color:var(--muted);font-size:.82rem}footer a{color:var(--accent)}
+@media (max-width:720px){.flow{grid-template-columns:1fr}.shot{max-width:320px}}
+</style></head><body><div class="wrap">
+<header class="top"><div class="brand"><div class="logo">K</div><div><h1>kane-loop verify</h1><p class="sub">Started 2026-11-16 03:33:23 UTC · verified by Kane CLI in real headless Chrome</p></div></div>
+<div class="verdict pass">✓ GREEN</div></header>
+<div class="stats">
+  <div class="stat"><b>2/2</b><span>flows green in the final round</span></div>
+  <div class="stat"><b>1</b><span>Kane round</span></div>
+  <div class="stat"><b>0</b><span>agent patches applied</span></div>
+  <div class="stat"><b>35.8</b><span>Kane credits used</span></div>
+  <div class="stat"><b>1m 44s</b><span>wall time</span></div>
+</div>
+<section class="step">
+  <div class="node pass">✓</div>
+  <div class="body"><h3>Round 1 · Kane CLI <span class="pill pass">2/2 flows passed</span></h3>
+  <article class="flow pass">
+  <div class="flow-main">
+    <div class="flow-head"><span class="badge pass">PASS</span><h4>split-three-ways</h4>
+      <span class="meta">41.0s · 16.8 credits</span></div>
+    <p class="objective">Go to http://localhost:4173, enter 120 in the Bill amount field, set Tip percent to 15, set Number of people to 3, click Calculate, then verify the page says Each person pays $46.00</p>
+    <p class="kane"><b>Kane:</b> calculated a tip split on the tip calculator</p>
+    
+    
+    
+    <details><summary>9 Kane steps</summary><ol class="steps"><li class="done" value="2">navigate: Navigate to http://localhost:4173</li><li class="done" value="3">wait: queued plan (3 steps): type &quot;Bill amount&quot;; type &quot;Tip percent&quot;; type &quot;Number of p</li><li class="done" value="4">type: Type &quot;120&quot; into &quot;Bill amount&quot;</li><li class="done" value="6">wait: queued plan (2 steps): type &quot;Tip percent&quot;; type &quot;Number of people&quot;</li><li class="done" value="7">type: Type &quot;15&quot; into &quot;Tip percent&quot;</li><li class="done" value="9">type: Typing 3 into Number of people field</li><li class="done" value="10">click: Clicking Calculate button</li><li class="done" value="11">analyze: the page says Each person pays $46.00</li><li class="done" value="12">assert: the page says Each person pays $46.00</li></ol></details>
+    <a class="link" href="https://test-manager.lambdatest.com/projects/01M7H6CPK23PWTY8SBYSKWSDNA/test-cases/01M7H6NDF60B5H8T14W19JYTN4/dashboard/share/US_CH1U0A3K0YK1EFQ8SOGNHBGT0TUYU4JNCHA67RPXXML8UM5UON12PSIYET0UR21Y?type=summary&amp;agentView=true&amp;fqdn=summary-page" target="_blank" rel="noopener">Open run in TestMu Test Manager ↗</a>
+  </div>
+  
+</article>
+<article class="flow pass">
+  <div class="flow-main">
+    <div class="flow-head"><span class="badge pass">PASS</span><h4>rejects-zero-people</h4>
+      <span class="meta">33.2s · 19.0 credits</span></div>
+    <p class="objective">Go to http://localhost:4173, enter 50 in the Bill amount field, set Number of people to 0, click Calculate, then verify an error message asking for at least 1 person is visible</p>
+    <p class="kane"><b>Kane:</b> validated bill calculation input on the local bill calculator</p>
+    
+    
+    
+    <details><summary>6 Kane steps</summary><ol class="steps"><li class="done" value="2">navigate: Navigate to http://localhost:4173</li><li class="done" value="3">type: Typing bill amount 50 in the split bill form</li><li class="done" value="4">type: Typing 0 into Number of people field</li><li class="done" value="5">click: Clicking Calculate</li><li class="done" value="6">analyze: ANALYZE(textual_visual, &#39;an error message asking for at least 1 person is visibl</li><li class="done" value="7">assert: an error message asking for at least 1 person is visible</li></ol></details>
+    <a class="link" href="https://test-manager.lambdatest.com/projects/01M7H6CPK23PWTY8SBYSKWSDNA/test-cases/01M7H6Q3T33CFY5B7QJ36DDTZZ/dashboard/share/US_83BIBD67D4STGPJX9961ZKO5W924W52UTHBZHJNX5IEN5ER2M89CQ7MMG801YLEB?type=summary&amp;agentView=true&amp;fqdn=summary-page" target="_blank" rel="noopener">Open run in TestMu Test Manager ↗</a>
+  </div>
+  
+</article></div></section>
+<footer>Generated by <a href="https://github.com/qinheyi/kane-loop">kane-loop</a> from <code>loop.json</code>. Raw Kane NDJSON for every flow sits next to this file.</footer>
+</div></body></html>

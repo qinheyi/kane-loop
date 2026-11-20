@@ -1,0 +1,10 @@
+--- a/app/app.js
++++ b/app/app.js
+@@ -1,6 +1,6 @@
+ // SplitBill: split a bill (with tip) between people.
+ function money(n) {
+-  return "$" + n.toFixed(2);
++  return "$" + Number(n).toFixed(2);
+ }
+ 
+ function splitBill(bill, tipPercent, people, roundUp = false) {

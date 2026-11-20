@@ -1,0 +1,125 @@
+[
+  {
+    "flow": "split-three-ways",
+    "objective": "Go to http://localhost:4173, enter 120 in the Bill amount field, set Tip percent to 15, set Number of people to 3, click Calculate, then verify the page says Each person pays $46.00",
+    "kane_status": "failed",
+    "exit_code": 1,
+    "reason": "Calculate was clicked with 120, 15, and 3, but no payment result appears after waiting.",
+    "reason_code": "assertion_error.confirmed_product_bug",
+    "summary": "The calculation code tries to format a value that is not a number, so it stops before it can show each person's payment.\nFix the calculation so every value passed to currency formatting is converted to a number first, then add a test for $120, 15%, and 3 people that confirms the displayed result is $46.00.\nevidence: console_error: n.toFixed is not a function",
+    "final_state": {},
+    "failed_assertions": [],
+    "failed_steps": [
+      "wait: Waiting after Calculate for the payment result"
+    ],
+    "last_steps": [
+      "done: type: Type \"15\" into \"Tip percent\"",
+      "done: ",
+      "done: type: Typing number of people 3",
+      "done: click: Clicking Calculate button",
+      "done: wait: PRIMARY: wait for the calculated payment result to appear",
+      "failed: wait: Waiting after Calculate for the payment result"
+    ],
+    "browser_console": [
+      {
+        "marker": "step",
+        "step": "0-7",
+        "ordinal": 7
+      },
+      {
+        "sequence": 0,
+        "level": "error",
+        "text": "n.toFixed is not a function",
+        "url": "",
+        "line": 0,
+        "step": "0-7"
+      }
+    ],
+    "failure_record": "generated: 2026-11-20T01:34:56.642Z\ntotals:\n  failures: 1\n  triaged: 1\n  untriaged: 0\nfailures:\n  - test: go-to-http-localhost-4173-enter-120-in-t-324ef1dd\n    ordinal: 7\n    step: 0-7\n    status: failed\n    path: tests/go-to-http-localhost-4173-enter-120-in-t-324ef1dd/steps/7-0-7/failure.yaml\n    title: Calculate throws a type error and shows no split result\n    triage_status: triaged\n"
+  },
+  {
+    "flow": "round-up-share",
+    "objective": "Go to http://localhost:4173, enter 100 in the Bill amount field, set Tip percent to 15, set Number of people to 3, check the Round up each share checkbox, click Calculate, then verify the page says Each person pays $39.00",
+    "kane_status": "failed",
+    "exit_code": 1,
+    "reason": "All requested inputs are set and Calculate was activated repeatedly, but the result section remains hidden and no payment amount appears.",
+    "reason_code": "assertion_error.confirmed_product_bug",
+    "summary": "The calculation tries to format a value that is not a number, so the result cannot be displayed.\nFix the calculation result formatting so it converts the computed share to a number before displaying it, then add a check that this input combination shows “Each person pays $39.00”.\nevidence: console_error: n.toFixed is not a function\nevidence: console_error: n.toFixed is not a function",
+    "final_state": {},
+    "failed_assertions": [],
+    "failed_steps": [
+      "wait: Waiting after calculation attempts for the tip calculator result"
+    ],
+    "last_steps": [
+      "done: click: Clicking Calculate button",
+      "done: wait: PRIMARY: wait 1000 ms for the calculation result to render",
+      "done: press_key: PRIMARY: press the Enter key to submit the valid tip calculator form",
+      "done: press_key: PRIMARY: press the Space key to activate the focused Calculate button",
+      "done: click: Clicking Calculate",
+      "failed: wait: Waiting after calculation attempts for the tip calculator result"
+    ],
+    "browser_console": [
+      {
+        "marker": "step",
+        "step": "0-6",
+        "ordinal": 6
+      },
+      {
+        "sequence": 0,
+        "level": "error",
+        "text": "n.toFixed is not a function",
+        "url": "",
+        "line": 0,
+        "step": "0-6"
+      },
+      {
+        "marker": "step",
+        "step": "0-8",
+        "ordinal": 8
+      },
+      {
+        "sequence": 1,
+        "level": "error",
+        "text": "n.toFixed is not a function",
+        "url": "",
+        "line": 0,
+        "step": "0-8"
+      },
+      {
+        "marker": "step",
+        "step": "0-9",
+        "ordinal": 9
+      },
+      {
+        "sequence": 2,
+        "level": "error",
+        "text": "n.toFixed is not a function",
+        "url": "",
+        "line": 0,
+        "step": "0-9"
+      },
+      {
+        "marker": "step",
+        "step": "0-10",
+        "ordinal": 10
+      },
+      {
+        "sequence": 3,
+        "level": "error",
+        "text": "n.toFixed is not a function",
+        "url": "",
+        "line": 0,
+        "step": "0-10"
+      },
+      {
+        "sequence": 4,
+        "level": "error",
+        "text": "n.toFixed is not a function",
+        "url": "",
+        "line": 0,
+        "step": "0-10"
+      }
+    ],
+    "failure_record": "generated: 2026-11-20T01:37:46.805Z\ntotals:\n  failures: 1\n  triaged: 1\n  untriaged: 0\nfailures:\n  - test: go-to-http-localhost-4173-enter-100-in-t-597da1ae\n    ordinal: 6\n    step: 0-6\n    status: failed\n    path: tests/go-to-http-localhost-4173-enter-100-in-t-597da1ae/steps/6-0-6/failure.yaml\n    title: Calculate crashes when formatting the split amount\n    triage_status: triaged\n"
+  }
+]

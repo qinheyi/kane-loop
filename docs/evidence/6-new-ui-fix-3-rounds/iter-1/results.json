@@ -1,0 +1,243 @@
+{
+  "iteration": 1,
+  "kind": "verify",
+  "results": [
+    {
+      "flow": "split-three-ways",
+      "objective": "Go to http://localhost:4173, enter 120 in the Bill amount field, set Tip percent to 15, set Number of people to 3, click Calculate, then verify the page says Each person pays $46.00",
+      "exitCode": 1,
+      "status": "failed",
+      "passed": false,
+      "summary": "The calculation code tries to format a value that is not a number, so it stops before it can show each person's payment.\nFix the calculation so every value passed to currency formatting is converted to a number first, then add a test for $120, 15%, and 3 people that confirms the displayed result is $46.00.\nevidence: console_error: n.toFixed is not a function",
+      "oneLiner": "The calculator accepts the entered bill, tip, and number of people, but clicking Calculate produces no payment result.",
+      "reason": "Calculate was clicked with 120, 15, and 3, but no payment result appears after waiting.",
+      "reasonCode": "assertion_error.confirmed_product_bug",
+      "finalState": {},
+      "assertions": {},
+      "credits": 16.7044435,
+      "duration": 92.9,
+      "testUrl": "https://test-manager.lambdatest.com/projects/01M7H6CPK23PWTY8SBYSKWSDNA/test-cases/01M7V9CAEP8MZ4MDPWFYXHQE66/dashboard/share/US_PZLOI1WYYVB963U5MA45C1A0HYJ7RMHEQMHB1MNUVV5HJNYV435HOD8EMQ77UF2F?type=summary&agentView=true&fqdn=summary-page",
+      "sessionDir": "/home/box/.testmuai/kaneai/sessions/91b4ac84-3637-4def-a07b-f6f7be749c63",
+      "evidencePack": "/home/box/.testmuai/kaneai/sessions/91b4ac84-3637-4def-a07b-f6f7be749c63/evidence/2b369504-718b-4c53-9dec-0f06f4ad3a44.evidence",
+      "steps": [
+        {
+          "step": 2,
+          "status": "done",
+          "remark": "navigate: Navigate to http://localhost:4173"
+        },
+        {
+          "step": 3,
+          "status": "done",
+          "remark": "wait: queued plan (3 steps): type \"Bill amount\"; type \"Tip percent\"; type \"Number of p"
+        },
+        {
+          "step": 4,
+          "status": "done",
+          "remark": "type: Type \"120\" into \"Bill amount\""
+        },
+        {
+          "step": 5,
+          "status": "done",
+          "remark": "type: Type \"15\" into \"Tip percent\""
+        },
+        {
+          "step": 6,
+          "status": "done",
+          "remark": ""
+        },
+        {
+          "step": 7,
+          "status": "done",
+          "remark": "type: Typing number of people 3"
+        },
+        {
+          "step": 8,
+          "status": "done",
+          "remark": "click: Clicking Calculate button"
+        },
+        {
+          "step": 9,
+          "status": "done",
+          "remark": "wait: PRIMARY: wait for the calculated payment result to appear"
+        },
+        {
+          "step": 10,
+          "status": "failed",
+          "remark": "wait: Waiting after Calculate for the payment result"
+        }
+      ],
+      "errors": [],
+      "ndjsonPath": "/workspace/kane-loop/.kane-loop/runs/2026-11-20T01-33-15-fix/iter-1/split-three-ways.ndjson",
+      "stderrPath": "/workspace/kane-loop/.kane-loop/runs/2026-11-20T01-33-15-fix/iter-1/split-three-ways.stderr.log",
+      "seconds": 108.939
+    },
+    {
+      "flow": "rejects-zero-people",
+      "objective": "Go to http://localhost:4173, enter 50 in the Bill amount field, set Number of people to 0, click Calculate, then verify an error message asking for at least 1 person is visible",
+      "exitCode": 0,
+      "status": "passed",
+      "passed": true,
+      "summary": "Entered a bill amount of 50 and set the number of people to 0 in the calculator.\nClicked Calculate as requested.\nThe calculator displayed an error message asking for at least 1 person.",
+      "oneLiner": "validated the calculator’s minimum-person requirement on the calculator site",
+      "reason": "Objective completed",
+      "reasonCode": "success.complete",
+      "finalState": {
+        "url": "http://localhost:4173/",
+        "at_least_1_person_error_visible": "true"
+      },
+      "assertions": {
+        "at_least_1_person_error_visible": {
+          "extracted_value": "true",
+          "operator": "equals",
+          "transforms": [],
+          "json_path": null,
+          "reasoning": "value: 'true' -> 'true'; equals 'true' -> PASS",
+          "analyzer_type": "textual_visual",
+          "step": 7,
+          "query": "whether an error message asking for at least 1 person is present (in the validation alert)",
+          "condition": "an error message asking for at least 1 person is visible",
+          "human_description": "Checking whether the at-least-one-person validation error is visible",
+          "expected_value": "true",
+          "subject": "an error message asking for at least 1 person",
+          "must_be": "present",
+          "code_js": "el(14).textContent.includes('at least 1 person')",
+          "wrapped_js": "(els) => {\n  const __m = {14: 0};\n  const el = (i) => els[__m[i]];\n  const __v = (el(14).textContent.includes('at least 1 person'));\n  return (typeof __v === 'boolean' ? String(__v) : __v);\n}",
+          "locators": [
+            "internal:text=\"Please enter a bill above 0,\"i"
+          ],
+          "needs_unit_conversion": false
+        }
+      },
+      "credits": 18.245504999999998,
+      "duration": 37.2,
+      "testUrl": "https://test-manager.lambdatest.com/projects/01M7H6CPK23PWTY8SBYSKWSDNA/test-cases/01M7V9FMR35HV2MH2C94QKRRFF/dashboard/share/US_4JRF4ZWB1644AUCP3BA8QCVKERVZLNEVFKUTVS78U47RPXIL79MEGQ38VCJN4QKH?type=summary&agentView=true&fqdn=summary-page",
+      "sessionDir": "/home/box/.testmuai/kaneai/sessions/844c924f-2820-48cc-ace3-f5bcfb25c09a",
+      "evidencePack": "/home/box/.testmuai/kaneai/sessions/844c924f-2820-48cc-ace3-f5bcfb25c09a/evidence/f7b9cd28-1898-49bc-a899-634e87b8940c.evidence",
+      "steps": [
+        {
+          "step": 2,
+          "status": "done",
+          "remark": "navigate: Navigate to http://localhost:4173"
+        },
+        {
+          "step": 3,
+          "status": "done",
+          "remark": "wait: queued plan (2 steps): type \"Bill amount\"; type \"Number of people\""
+        },
+        {
+          "step": 4,
+          "status": "done",
+          "remark": "type: Type \"50\" into \"Bill amount\""
+        },
+        {
+          "step": 5,
+          "status": "done",
+          "remark": "type: Type \"0\" into \"Number of people\""
+        },
+        {
+          "step": 6,
+          "status": "done",
+          "remark": "wait: PRIMARY: confirm the filled calculator inputs"
+        },
+        {
+          "step": 7,
+          "status": "done",
+          "remark": "click: Clicking Calculate"
+        },
+        {
+          "step": 8,
+          "status": "done",
+          "remark": "analyze: ANALYZE(textual_visual, 'an error message asking for at least 1 person is visibl"
+        },
+        {
+          "step": 9,
+          "status": "done",
+          "remark": "assert: an error message asking for at least 1 person is visible"
+        }
+      ],
+      "errors": [],
+      "ndjsonPath": "/workspace/kane-loop/.kane-loop/runs/2026-11-20T01-33-15-fix/iter-1/rejects-zero-people.ndjson",
+      "stderrPath": "/workspace/kane-loop/.kane-loop/runs/2026-11-20T01-33-15-fix/iter-1/rejects-zero-people.stderr.log",
+      "seconds": 56.139
+    },
+    {
+      "flow": "round-up-share",
+      "objective": "Go to http://localhost:4173, enter 100 in the Bill amount field, set Tip percent to 15, set Number of people to 3, check the Round up each share checkbox, click Calculate, then verify the page says Each person pays $39.00",
+      "exitCode": 1,
+      "status": "failed",
+      "passed": false,
+      "summary": "The calculation tries to format a value that is not a number, so the result cannot be displayed.\nFix the calculation result formatting so it converts the computed share to a number before displaying it, then add a check that this input combination shows “Each person pays $39.00”.\nevidence: console_error: n.toFixed is not a function\nevidence: console_error: n.toFixed is not a function",
+      "oneLiner": "The calculator accepts the requested values, but pressing Calculate fails before it can show what each person owes.",
+      "reason": "All requested inputs are set and Calculate was activated repeatedly, but the result section remains hidden and no payment amount appears.",
+      "reasonCode": "assertion_error.confirmed_product_bug",
+      "finalState": {},
+      "assertions": {},
+      "credits": 32.7181975,
+      "duration": 97.2,
+      "testUrl": "https://test-manager.lambdatest.com/projects/01M7H6CPK23PWTY8SBYSKWSDNA/test-cases/01M7V9HBWPXQ9C5ACYB8AS7TDH/dashboard/share/US_Q9NZ7B7Y5Y7U4VQHP48M7L471RPMQ6JFCQX0NF9W6DUOMXI5BB8Z700LROE3KB5V?type=summary&agentView=true&fqdn=summary-page",
+      "sessionDir": "/home/box/.testmuai/kaneai/sessions/59d200e6-52ab-45c6-b35f-fab120ef0900",
+      "evidencePack": "/home/box/.testmuai/kaneai/sessions/59d200e6-52ab-45c6-b35f-fab120ef0900/evidence/af117c20-dc41-45fa-8683-a5cc01e237f8.evidence",
+      "steps": [
+        {
+          "step": 2,
+          "status": "done",
+          "remark": "navigate: Navigate to http://localhost:4173"
+        },
+        {
+          "step": 3,
+          "status": "done",
+          "remark": "wait: queued plan (2 steps): type \"Bill amount\"; type \"Number of people\""
+        },
+        {
+          "step": 4,
+          "status": "done",
+          "remark": "type: Type \"100\" into \"Bill amount\""
+        },
+        {
+          "step": 5,
+          "status": "done",
+          "remark": "type: Type \"3\" into \"Number of people\""
+        },
+        {
+          "step": 6,
+          "status": "done",
+          "remark": "click: Clicking Round up each share checkbox in SplitBill form"
+        },
+        {
+          "step": 7,
+          "status": "done",
+          "remark": "click: Clicking Calculate button"
+        },
+        {
+          "step": 8,
+          "status": "done",
+          "remark": "wait: PRIMARY: wait 1000 ms for the calculation result to render"
+        },
+        {
+          "step": 9,
+          "status": "done",
+          "remark": "press_key: PRIMARY: press the Enter key to submit the valid tip calculator form"
+        },
+        {
+          "step": 10,
+          "status": "done",
+          "remark": "press_key: PRIMARY: press the Space key to activate the focused Calculate button"
+        },
+        {
+          "step": 11,
+          "status": "done",
+          "remark": "click: Clicking Calculate"
+        },
+        {
+          "step": 12,
+          "status": "failed",
+          "remark": "wait: Waiting after calculation attempts for the tip calculator result"
+        }
+      ],
+      "errors": [],
+      "ndjsonPath": "/workspace/kane-loop/.kane-loop/runs/2026-11-20T01-33-15-fix/iter-1/round-up-share.ndjson",
+      "stderrPath": "/workspace/kane-loop/.kane-loop/runs/2026-11-20T01-33-15-fix/iter-1/round-up-share.stderr.log",
+      "seconds": 113.831
+    }
+  ]
+}

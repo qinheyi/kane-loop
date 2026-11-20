@@ -1,0 +1,11 @@
+--- a/app/app.js
++++ b/app/app.js
+@@ -12,7 +12,7 @@
+ 
+ document.getElementById("split-form").addEventListener("submit", (event) => {
+   event.preventDefault();
+-  const bill = document.getElementById("bill").value;
++  const bill = Number(document.getElementById("bill").value);
+   const tipPercent = parseFloat(document.getElementById("tip").value);
+   const people = parseInt(document.getElementById("people").value, 10);
+   const roundUp = document.getElementById("round-up").checked;

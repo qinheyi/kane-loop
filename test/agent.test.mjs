@@ -39,3 +39,16 @@ test("summarize reads run_end and failed steps from Kane NDJSON events", () => {
 test("exit 0 without run_end passed is not treated as green", () => {
   assert.equal(summarize({ name: "f", objective: "o" }, 0, []).passed, false);
 });
+
+test("HTML report renders verdict, flows and escaped Kane text from loop.json", async () => {
+  const { renderHtmlReport } = await import("../lib/report.mjs");
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), "kl-rep-"));
+  fs.writeFileSync(path.join(dir, "loop.json"), JSON.stringify({
+    command: "fix", started: "2026-11-20T01:00:00Z", finished: "2026-11-20T01:02:00Z", green: true, creditsUsed: 12.5,
+    iterations: [{ iteration: 1, kind: "verify", results: [{ flow: "f1", objective: "o", passed: true, credits: 12.5, duration: 30, oneLiner: "<b>ok</b>", steps: [] }] }],
+  }));
+  const html = renderHtmlReport(dir);
+  assert.match(html, /✓ GREEN/);
+  assert.match(html, /f1/);
+  assert.match(html, /&lt;b&gt;ok&lt;\/b&gt;/);
+});
