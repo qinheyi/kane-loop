@@ -99,7 +99,6 @@ All logs below are unedited output of real runs, copied from `.kane-loop/runs/` 
 | 4 | [`break` + `fix --no-agent`](docs/evidence/4-fix-fallback-rollback/REPORT.md) | FAIL → rollback to last green → green | 96.3 |
 | 5 | [`watch --fix`, then a bad save](docs/evidence/5-watch-on-save/REPORT.md) | save fired Kane → FAIL → MiniMax patch → green | 81.1 |
 | 6 | [`break` + `fix` on the redesigned UI (20 Nov)](docs/evidence/6-new-ui-fix-3-rounds/REPORT.md) | round 1 FAIL → MiniMax patched only the symptom (`Number(n).toFixed`) → **Kane caught the wrong total ($4006.00 instead of $46.00)** in round 2 → MiniMax fixed the root cause → round 3 green on all 3 flows | 154.6 |
-
 | 7 | [`break` + `fix` for the v2 demo video (20 Nov)](docs/evidence/7-demo-v2-fix/REPORT.md) | round 1 FAIL (`confirmed_product_bug`, console `n.toFixed is not a function`) → MiniMax patch → round 2 green on all 3 flows | 104.9 |
 
 Run 6 shows why the loop matters: the agent's first patch made the crash go away, and a "does it render?" check
