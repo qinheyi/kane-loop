@@ -1,0 +1,10 @@
+{
+  "diagnosis": "The bill value is read as a string, so adding the numeric tip concatenates values and later causes `toFixed` to fail. Parsing the bill as a number allows the result to render correctly.",
+  "edits": [
+    {
+      "file": "app/app.js",
+      "find": "  const bill = document.getElementById(\"bill\").value;",
+      "replace": "  const bill = parseFloat(document.getElementById(\"bill\").value);"
+    }
+  ]
+}

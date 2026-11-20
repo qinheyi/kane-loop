@@ -100,6 +100,8 @@ All logs below are unedited output of real runs, copied from `.kane-loop/runs/` 
 | 5 | [`watch --fix`, then a bad save](docs/evidence/5-watch-on-save/REPORT.md) | save fired Kane → FAIL → MiniMax patch → green | 81.1 |
 | 6 | [`break` + `fix` on the redesigned UI (20 Nov)](docs/evidence/6-new-ui-fix-3-rounds/REPORT.md) | round 1 FAIL → MiniMax patched only the symptom (`Number(n).toFixed`) → **Kane caught the wrong total ($4006.00 instead of $46.00)** in round 2 → MiniMax fixed the root cause → round 3 green on all 3 flows | 154.6 |
 
+| 7 | [`break` + `fix` for the v2 demo video (20 Nov)](docs/evidence/7-demo-v2-fix/REPORT.md) | round 1 FAIL (`confirmed_product_bug`, console `n.toFixed is not a function`) → MiniMax patch → round 2 green on all 3 flows | 104.9 |
+
 Run 6 shows why the loop matters: the agent's first patch made the crash go away, and a "does it render?" check
 would have passed. Kane's assertion on the actual amount rejected it, and the agent got the new evidence and fixed
 the real bug. Full colored transcript: [`docs/screenshots/cli-fix-run.png`](docs/screenshots/cli-fix-run.png).
@@ -139,6 +141,7 @@ lib/agent.mjs        MiniMax agent, patch guard, last-green snapshot + rollback 
 lib/ui.mjs           terminal styling (colors on a TTY; NO_COLOR / FORCE_COLOR respected)
 lib/report.mjs       self-contained REPORT.html per run
 scripts/break.mjs    demo regression; scripts/secret-scan.mjs pre-push secret guard
+scripts/demo-video.py  renders the demo video from a real run's colored log, Kane screenshots and REPORT.html
 docs/evidence/       real run logs and screenshots
 docs/screenshots/    README images (before/after of the 20 Nov UI polish: docs/screenshots/before-after.png)
 ```

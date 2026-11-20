@@ -1,0 +1,117 @@
+[
+  {
+    "flow": "split-three-ways",
+    "objective": "Go to http://localhost:4173, enter 120 in the Bill amount field, set Tip percent to 15, set Number of people to 3, click Calculate, then verify the page says Each person pays $46.00",
+    "kane_status": "failed",
+    "exit_code": 1,
+    "reason": "Calculated valid inputs twice, but the page never rendered the required each-person result.",
+    "reason_code": "assertion_error.step_not_achievable",
+    "summary": "The bill, tip, and people fields were filled in, but the recorded steps show a wait after typing rather than a click on Calculate. The page therefore remained on the input form and had no result to verify.\nAfter entering the three values, click Calculate and confirm that a result panel appears before checking the amount.",
+    "final_state": {},
+    "failed_assertions": [],
+    "failed_steps": [
+      "wait: Waiting after submitting the tip calculator"
+    ],
+    "last_steps": [
+      "done: ",
+      "done: type: Typing 3 into number of people field",
+      "done: click: Clicking Calculate",
+      "done: wait: PRIMARY: wait 500 ms for the calculator result to render",
+      "done: press_key: PRIMARY: press the Enter key to submit the completed tip calculator form",
+      "failed: wait: Waiting after submitting the tip calculator"
+    ],
+    "browser_console": [
+      {
+        "marker": "step",
+        "step": "0-7",
+        "ordinal": 7
+      },
+      {
+        "sequence": 0,
+        "level": "error",
+        "text": "n.toFixed is not a function",
+        "url": "",
+        "line": 0,
+        "step": "0-7"
+      },
+      {
+        "marker": "step",
+        "step": "0-9",
+        "ordinal": 9
+      },
+      {
+        "sequence": 1,
+        "level": "error",
+        "text": "n.toFixed is not a function",
+        "url": "",
+        "line": 0,
+        "step": "0-9"
+      }
+    ],
+    "failure_record": "generated: 2026-11-20T01:50:00.886Z\ntotals:\n  failures: 1\n  triaged: 1\n  untriaged: 0\nfailures:\n  - test: go-to-http-localhost-4173-enter-120-in-t-f98dd32a\n    ordinal: 8\n    step: 0-8\n    status: broken\n    path: tests/go-to-http-localhost-4173-enter-120-in-t-f98dd32a/steps/8-0-8/failure.yaml\n    title: Calculator result asserted before Calculate was clicked\n    triage_status: triaged\n"
+  },
+  {
+    "flow": "round-up-share",
+    "objective": "Go to http://localhost:4173, enter 100 in the Bill amount field, set Tip percent to 15, set Number of people to 3, check the Round up each share checkbox, click Calculate, then verify the page says Each person pays $39.00",
+    "kane_status": "failed",
+    "exit_code": 1,
+    "reason": "Valid inputs and checked rounding were submitted repeatedly, but the result remains hidden and lacks the required payment text.",
+    "reason_code": "assertion_error.confirmed_product_bug",
+    "summary": "The calculation page encounters an internal error when it tries to format a value, so it stops before displaying the result.\nFix the calculation’s number formatting so all submitted values are converted to numbers before the result is displayed.\nevidence: console_error: n.toFixed is not a function",
+    "final_state": {},
+    "failed_assertions": [],
+    "failed_steps": [
+      "wait: Waiting after calculation attempt"
+    ],
+    "last_steps": [
+      "done: click: Clicking Round up each share checkbox",
+      "done: click: Clicking Calculate",
+      "done: wait: PRIMARY: wait for the calculation result to appear",
+      "done: click: Clicking Calculate",
+      "done: press_key: PRIMARY: press the Enter key to submit the focused Calculate button",
+      "failed: wait: Waiting after calculation attempt"
+    ],
+    "browser_console": [
+      {
+        "marker": "step",
+        "step": "0-10",
+        "ordinal": 10
+      },
+      {
+        "sequence": 0,
+        "level": "error",
+        "text": "n.toFixed is not a function",
+        "url": "",
+        "line": 0,
+        "step": "0-10"
+      },
+      {
+        "marker": "step",
+        "step": "0-12",
+        "ordinal": 12
+      },
+      {
+        "sequence": 1,
+        "level": "error",
+        "text": "n.toFixed is not a function",
+        "url": "",
+        "line": 0,
+        "step": "0-12"
+      },
+      {
+        "marker": "step",
+        "step": "0-13",
+        "ordinal": 13
+      },
+      {
+        "sequence": 2,
+        "level": "error",
+        "text": "n.toFixed is not a function",
+        "url": "",
+        "line": 0,
+        "step": "0-13"
+      }
+    ],
+    "failure_record": "generated: 2026-11-20T01:53:19.471Z\ntotals:\n  failures: 1\n  triaged: 1\n  untriaged: 0\nfailures:\n  - test: go-to-http-localhost-4173-enter-100-in-t-062cb069\n    ordinal: 10\n    step: 0-10\n    status: failed\n    path: tests/go-to-http-localhost-4173-enter-100-in-t-062cb069/steps/10-0-10/failure.yaml\n    title: Calculation crashes when valid bill inputs are submitted\n    triage_status: triaged\n"
+  }
+]
